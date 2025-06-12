@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DiabetesHelper.DAL.Models.GlucoseReading>
+
+<h2>Glucose Readings History</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Value</th>
+            <th>Date</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Value</td>
+                <td>@item.Date.ToString("g")</td>
+                <td>@item.ReadingType</td>
+            </tr>
+        }
+    </tbody>
+</table>

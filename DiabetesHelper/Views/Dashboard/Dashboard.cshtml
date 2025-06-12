@@ -1,0 +1,87 @@
+﻿@*view model ده بقوله أي بيانات إنت هتعرضها جايه من ال*@
+@model DiabetesHelper.PL.ViewModels.DashboardViewModel
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+    ViewData["Title"] = "Dashboard";//appear in new tap 
+}
+
+<h2 class="text-center">Welcome, @Context.Session.GetString("UserName") 👋</h2>
+
+<div class="container mt-4">
+
+    <!-- آخر قراءة -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4>Last Reading</h4>
+            @if (Model.LastReading != null)
+            {
+                <p><strong>Value:</strong> @Model.LastReading</p>
+                <p><strong>Type:</strong> @Model.LastReadingType</p>
+                <p><strong>Date:</strong> @Model.LastReadingDate?.ToString("dd MMM yyyy - hh:mm tt")</p>
+            }
+            else
+            {
+                <p>No readings available yet.</p>
+            }
+        </div>
+    </div>
+
+    <!-- إحصائيات عامة -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="alert alert-success">
+                <h5>Max Reading</h5>
+                <p>@(Model.MaxReading?.ToString() ?? "-")</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-warning">
+                <h5>Min Reading</h5>
+                <p>@(Model.MinReading?.ToString() ?? "-")</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="alert alert-info">
+                <h5>Average Reading</h5>
+                <p>@(Model.AvgReading?.ToString("0.00") ?? "-")</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- رسم بياني لآخر القراءات -->
+    <div class="card">
+        <div class="card-body">
+            <h4>Last 7 Readings</h4>
+            <canvas id="readingsChart"></canvas>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('readingsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [...Array(@Model.RecentReadings.Count)].map((_, i) => `Day ${i + 1}`),
+                datasets: [{
+                    label: 'Blood Sugar',
+                    data: @Html.Raw(Json.Serialize(Model.RecentReadings)),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
