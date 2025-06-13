@@ -1,10 +1,8 @@
-﻿@model DiabetesHelper.PL.ViewModels.LoginViewModel
-@if (ViewBag.Error != null)
+﻿@if (TempData["Message"] != null)
 {
-	<div style="color:red;">@ViewBag.Error</div>
+	<div class="alert alert-success">@TempData["Message"]</div>
 }
-
-
+@model DiabetesHelper.PL.ViewModels.LoginViewModel
 @{
 	ViewData["Title"] = "Login"; // بيحدد عنوان الصفحة
 }

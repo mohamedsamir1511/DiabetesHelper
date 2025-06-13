@@ -21,15 +21,13 @@ namespace DiabetesHelper.PL.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid )
-            {
-                return View(model);//هتروح للفيو بنفس إسم الأكشن //register
-            }
+            if (!ModelState.IsValid)
+                return View(model);
 
+            // أولًا: تأكد الإيميل مش موجود
             var userExist = await _userInterface.GetByEmail(model.Email);
             if (userExist != null)
             {
@@ -37,14 +35,16 @@ namespace DiabetesHelper.PL.Controllers
                 return View(model);
             }
 
+            // ثانيًا: أنشئ المستخدم
             var user = new User
             {
                 FullName = model.FullName,
                 Email = model.Email,
-                Password = model.Password // يُفضل تشفيرها لاحقاً
+                Password = model.Password
             };
 
             await _userInterface.AddAsync(user);
+            TempData["Message"] = "Register Is Successfully Registreted";
             return RedirectToAction("Login");
         }
 

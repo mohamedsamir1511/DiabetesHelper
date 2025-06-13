@@ -8,6 +8,11 @@
 }
 
 <h2 class="text-center">Welcome, @Context.Session.GetString("UserName") 👋</h2>
+<div class="text-end mb-3">
+    <a asp-controller="GlucoseReading" asp-action="Add" class="btn btn-primary">
+        + Adding New GlucoseReading
+    </a>
+</div>
 
 <div class="container mt-4">
 

@@ -12,6 +12,6 @@ namespace DiabetesHelper.PL.ViewModels
         public string Password { get; set; }
         [Required,DataType(DataType.Password),Compare("Password")]
         public string ConfirmPassword {  get; set; }
-        public string Role {  get; set; }
+       
     }
 }

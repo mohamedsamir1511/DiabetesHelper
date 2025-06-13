@@ -9,6 +9,7 @@ namespace DiabetesHelper.DAL.Enums
     public enum UserRole
     {
         Patient,
-        Doctor
+        Doctor,
+        Admin
     }
 }
