@@ -20,7 +20,9 @@ namespace DiabetesHelper.BLL.Repositories
         }
         public async Task<User?> GetByEmail(string email)
         {
-            return await _appDbContext.Users.FirstOrDefaultAsync(e => e.Email==email);
+            return await _appDbContext.Users
+                .FirstOrDefaultAsync(e => e.Email == email);
         }
+
     }
 }

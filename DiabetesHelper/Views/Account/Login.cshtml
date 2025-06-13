@@ -1,4 +1,9 @@
 ﻿@model DiabetesHelper.PL.ViewModels.LoginViewModel
+@if (ViewBag.Error != null)
+{
+	<div style="color:red;">@ViewBag.Error</div>
+}
+
 
 @{
 	ViewData["Title"] = "Login"; // بيحدد عنوان الصفحة

@@ -15,7 +15,7 @@ namespace DiabetesHelper.PL.Controllers
             _glucoseRepo = glucoseRepo;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> DashboardIndex()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)

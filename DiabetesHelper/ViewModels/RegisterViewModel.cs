@@ -5,7 +5,7 @@ namespace DiabetesHelper.PL.ViewModels
     public class RegisterViewModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string FullName { get; set; }
         [Required,EmailAddress]
         public string Email { get; set; }
         [Required,DataType(DataType.Password)]  

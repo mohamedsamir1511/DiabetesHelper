@@ -25,9 +25,9 @@ namespace DiabetesHelper.PL.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid )
             {
-                return View(model);
+                return View(model);//هتروح للفيو بنفس إسم الأكشن //register
             }
 
             var userExist = await _userInterface.GetByEmail(model.Email);
@@ -39,7 +39,7 @@ namespace DiabetesHelper.PL.Controllers
 
             var user = new User
             {
-                FullName = model.UserName,
+                FullName = model.FullName,
                 Email = model.Email,
                 Password = model.Password // يُفضل تشفيرها لاحقاً
             };
@@ -74,7 +74,7 @@ namespace DiabetesHelper.PL.Controllers
             HttpContext.Session.SetString("UserName", user.FullName);
 
             // هنا يتم التوجيه إلى الصفحة التي تريدها بعد تسجيل الدخول
-            return RedirectToAction("Index", "Dashboard"); // عدل إلى الصفحة التي تريدها
+            return RedirectToAction("DashboardIndex", "Dashboard"); // عدل إلى الصفحة التي تريدها
         }
 
         public IActionResult Logout()
